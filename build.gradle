@@ -1,8 +1,15 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
-group 'org.example'
+shadowJar {
+    manifest {
+        attributes 'Main-Class': 'hu.pvga.loguard.Main'
+    }
+}
+
+group 'hu.pvga'
 version '1.0-SNAPSHOT'
 
 repositories {
