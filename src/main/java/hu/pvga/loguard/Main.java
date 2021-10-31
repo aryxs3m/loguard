@@ -1,7 +1,6 @@
 package hu.pvga.loguard;
 
 import hu.pvga.loguard.loghandler.DefaultPatternHandler;
-import hu.pvga.loguard.notifier.ConsoleNotifier;
 import hu.pvga.loguard.notifier.Notifier;
 import hu.pvga.loguard.observer.LogObserver;
 import org.json.JSONObject;
@@ -12,10 +11,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
