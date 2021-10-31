@@ -1,5 +1,5 @@
 package hu.pvga.loguard.loghandler;
 
 public interface PatternHandler {
-    void handle(String line);
+    void handle(String file, String line);
 }

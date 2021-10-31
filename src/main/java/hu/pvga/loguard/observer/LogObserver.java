@@ -14,12 +14,14 @@ import java.io.RandomAccessFile;
 public class LogObserver implements Runnable {
     private long lastKnownPosition = 0;
     private boolean shouldIRun = true;
+    private final String fileName;
     private final File crunchifyFile;
     private final PatternHandler logLineHandler;
     private final long logPollingSleep;
 
     public LogObserver(String myFile, PatternHandler logLineHandler, long logPollingSleep) {
         crunchifyFile = new File(myFile);
+        fileName = myFile;
         this.logLineHandler = logLineHandler;
         this.logPollingSleep = logPollingSleep;
     }
@@ -38,7 +40,7 @@ public class LogObserver implements Runnable {
                     readWriteFileAccess.seek(lastKnownPosition);
                     String crunchifyLine;
                     while ((crunchifyLine = readWriteFileAccess.readLine()) != null) {
-                        logLineHandler.handle(crunchifyLine);
+                        logLineHandler.handle(fileName, crunchifyLine);
                     }
                     lastKnownPosition = readWriteFileAccess.getFilePointer();
                     readWriteFileAccess.close();

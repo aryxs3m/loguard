@@ -12,7 +12,7 @@ public class ConsoleNotifier extends BaseNotifier {
     }
 
     @Override
-    public void handle(String line, Pattern pattern) {
-        System.out.println(line + " " + pattern.getTag() + " matched!");
+    public void handle(String file, String line, Pattern pattern) {
+        System.out.println(file + " " + line + " " + pattern.getTag() + " matched!");
     }
 }

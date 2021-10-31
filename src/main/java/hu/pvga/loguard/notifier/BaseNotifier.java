@@ -22,7 +22,7 @@ public class BaseNotifier implements Notifier {
      * @param pattern
      */
     @Override
-    public void handle(String line, Pattern pattern) {
+    public void handle(String file, String line, Pattern pattern) {
 
     }
 

@@ -21,7 +21,7 @@ public class DiscordNotifier extends BaseNotifier {
     }
 
     @Override
-    public void handle(String line, Pattern pattern) {
+    public void handle(String file, String line, Pattern pattern) {
         if (checkLimit(rateLimit)) {
 
             WebhookEmbed embed = new WebhookEmbedBuilder()
@@ -29,6 +29,7 @@ public class DiscordNotifier extends BaseNotifier {
                     .setDescription("loguard caught something")
                     .addField(new WebhookEmbed.EmbedField(true, "Tag", pattern.getTag()))
                     .addField(new WebhookEmbed.EmbedField(true, "Pattern", pattern.getContains()))
+                    .addField(new WebhookEmbed.EmbedField(false, "File", file))
                     .addField(new WebhookEmbed.EmbedField(false, "Log", line))
                     .build();
 

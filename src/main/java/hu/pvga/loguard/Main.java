@@ -9,8 +9,14 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static JSONObject config;
@@ -26,7 +32,7 @@ public class Main {
             System.exit(1);
         }
 
-        ExecutorService observerExecutor = Executors.newFixedThreadPool(config.getInt("threads"));
+        ExecutorService observerExecutor = Executors.newCachedThreadPool();
 
         patternConfig.getJSONArray("patterns").forEach(pattern -> {
             JSONObject patternJSON = (JSONObject) pattern;
@@ -46,12 +52,20 @@ public class Main {
                     DefaultPatternHandler patternHandler = new DefaultPatternHandler(patternJSON, (Notifier) notifier);
 
                     observeObject.getJSONArray("files").forEach(logFile -> {
-                        System.out.println(" " + patternName + " " + logFile.toString());
-                        LogObserver logObserver = new LogObserver(
-                                logFile.toString(),
-                                patternHandler,
-                                config.getLong("log_polling_sleep"));
-                        observerExecutor.execute(logObserver);
+
+                        try (Stream<Path> walk = Files.walk(Paths.get(logFile.toString()), 1)) {
+                            walk.filter(Files::isRegularFile).forEach(path -> {
+                                System.out.println(" " + patternName + " " + path.toString());
+                                LogObserver logObserver = new LogObserver(
+                                        path.toString(),
+                                        patternHandler,
+                                        config.getLong("log_polling_sleep"));
+                                observerExecutor.execute(logObserver);
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                     });
                 } catch (ClassNotFoundException | NoSuchMethodException e) {
                     e.printStackTrace();

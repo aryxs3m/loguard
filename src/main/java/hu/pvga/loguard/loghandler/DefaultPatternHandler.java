@@ -23,10 +23,10 @@ public class DefaultPatternHandler implements PatternHandler {
     }
 
     @Override
-    public void handle(String line) {
+    public void handle(String file, String line) {
         patterns.forEach(pattern -> {
             if (pattern.match(line)) {
-                notifier.handle(line, pattern);
+                notifier.handle(file, line, pattern);
             }
         });
     }
