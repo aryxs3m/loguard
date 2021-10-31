@@ -1,0 +1,37 @@
+{
+  "patterns": [
+    {
+      "name": "webservers",
+      "patterns": [
+        {
+          "contains": "Uirusu/2.0",
+          "tag": "exploit"
+        },
+        {
+          "contains": "shell_exec",
+          "tag": "exploit"
+        },
+        {
+          "contains": "chmod 777",
+          "tag": "exploit"
+        },
+        {
+          "contains": "%20UNION%20ALL%20",
+          "tag": "sqli"
+        },
+        {
+          "contains": "DBMS_PIPE.RECEIVE_MESSAGE",
+          "tag": "sqli"
+        },
+        {
+          "contains": "information_schema",
+          "tag": "sqli"
+        },
+        {
+          "contains": "sqlmap",
+          "tag": "hacktool"
+        }
+      ]
+    }
+  ]
+}

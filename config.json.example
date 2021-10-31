@@ -1,0 +1,20 @@
+{
+  "threads": 4,
+  "log_polling_sleep": 2000,
+
+  "observe": {
+    "webservers": {
+      "notifier": {
+        "class": "DiscordNotifier",
+        "config": {
+          "webhook_url": "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "rate_limit": 60000
+        }
+      },
+      "files": [
+        "/var/log/apache2/access.log",
+        "/var/log/apache2/error.log"
+      ]
+    }
+  }
+}
