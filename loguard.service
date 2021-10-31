@@ -1,0 +1,15 @@
+[Unit]
+Description=Loguard log watchdog
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=loguard
+WorkingDirectory=/opt/loguard
+ExecStart=/usr/bin/java -jar loguard-1.0-SNAPSHOT-all.jar
+
+[Install]
+WantedBy=multi-user.target

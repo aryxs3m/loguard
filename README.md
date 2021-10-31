@@ -11,6 +11,17 @@ At the moment this project supports
 - Very basic rules:
   - string contains
 
+## Installation
+
+- Build `shadowJar` or download release
+- Copy to your server (ex. /opt/loguard/)
+- Rename config.json.example to config.json, configure as you like
+- Copy [loguard.service](loguard.service) to `/etc/systemd/system`, change working directory if needed
+- Create `loguard` user, ensure that this user can read log files
+- `systemctl daemon-reload`
+- `systemctl enable loguard`
+- `service loguard start`
+
 ## Configuration
 
 You have two JSON files: **config.json** and **patterns.json**.
