@@ -40,7 +40,9 @@ public class LogObserver implements Runnable {
                     readWriteFileAccess.seek(lastKnownPosition);
                     String crunchifyLine;
                     while ((crunchifyLine = readWriteFileAccess.readLine()) != null) {
-                        logLineHandler.handle(fileName, crunchifyLine);
+                        if (lastKnownPosition > 0) {
+                            logLineHandler.handle(fileName, crunchifyLine);
+                        }
                     }
                     lastKnownPosition = readWriteFileAccess.getFilePointer();
                     readWriteFileAccess.close();
